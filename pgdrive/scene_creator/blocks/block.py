@@ -431,7 +431,7 @@ class Block(Element):
             lane_line = self.loader.loadModel(AssetLoader.file_path(AssetLoader.asset_path, "models", "box.bam"))
             lane_line.getChildren().reparentTo(body_np)
         body_np.setScale(length, Block.LANE_LINE_WIDTH, Block.LANE_LINE_THICKNESS)
-        body_np.set_color(color)
+        body_np.set_color(0,0,0,1)
 
     def _add_side_walk2bullet(self, lane_start, lane_end, middle, radius=0.0, direction=0):
         # length = norm(lane_end[0] - lane_start[0], lane_end[1] - lane_start[1])
