@@ -273,8 +273,8 @@ class Block(Element):
         graph = self.block_network.graph
         for _from, to_dict in graph.items():
             for _to, lanes in to_dict.items():
-                if self.render:
-                    self._add_land(lanes)
+                # if self.render:
+                #     self._add_land(lanes)
                 for _id, l in enumerate(lanes):
                     line_color = l.line_color
                     self._add_lane(l, _id, line_color)
@@ -434,36 +434,37 @@ class Block(Element):
         body_np.set_color(color)
 
     def _add_side_walk2bullet(self, lane_start, lane_end, middle, radius=0.0, direction=0):
-        length = norm(lane_end[0] - lane_start[0], lane_end[1] - lane_start[1])
-        body_node = BulletRigidBodyNode(BodyName.Side_walk)
-        body_node.setActive(False)
-        body_node.setKinematic(False)
-        body_node.setStatic(True)
-        side_np = self.side_walk_node_path.attachNewNode(body_node)
-        shape = BulletBoxShape(Vec3(1 / 2, 1 / 2, 1 / 2))
-        body_node.addShape(shape)
-        body_node.setIntoCollideMask(BitMask32.bit(Block.COLLISION_MASK))
-        self.bullet_nodes.append(body_node)
-
-        if radius == 0:
-            factor = 1
-        else:
-            if direction == 1:
-                factor = (1 - self.SIDE_WALK_LINE_DIST / radius)
-            else:
-                factor = (1 + self.SIDE_WALK_WIDTH / radius) * (1 + self.SIDE_WALK_LINE_DIST / radius)
-        direction_v = lane_end - lane_start
-        vertical_v = (-direction_v[1], direction_v[0]) / numpy.linalg.norm(direction_v)
-        middle += vertical_v * (self.SIDE_WALK_WIDTH / 2 + self.SIDE_WALK_LINE_DIST)
-        side_np.setPos(middle[0], -middle[1], 0)
-        theta = -numpy.arctan2(direction_v[1], direction_v[0])
-        side_np.setQuat(LQuaternionf(numpy.cos(theta / 2), 0, 0, numpy.sin(theta / 2)))
-        side_np.setScale(
-            length * factor, self.SIDE_WALK_WIDTH, self.SIDE_WALK_THICKNESS * (1 + 0.1 * numpy.random.rand())
-        )
-        if self.render:
-            side_np.setTexture(self.ts_color, self.side_texture)
-            self.side_walk.instanceTo(side_np)
+        # length = norm(lane_end[0] - lane_start[0], lane_end[1] - lane_start[1])
+        # body_node = BulletRigidBodyNode(BodyName.Side_walk)
+        # body_node.setActive(False)
+        # body_node.setKinematic(False)
+        # body_node.setStatic(True)
+        # side_np = self.side_walk_node_path.attachNewNode(body_node)
+        # shape = BulletBoxShape(Vec3(1 / 2, 1 / 2, 1 / 2))
+        # body_node.addShape(shape)
+        # body_node.setIntoCollideMask(BitMask32.bit(Block.COLLISION_MASK))
+        # self.bullet_nodes.append(body_node)
+        #
+        # if radius == 0:
+        #     factor = 1
+        # else:
+        #     if direction == 1:
+        #         factor = (1 - self.SIDE_WALK_LINE_DIST / radius)
+        #     else:
+        #         factor = (1 + self.SIDE_WALK_WIDTH / radius) * (1 + self.SIDE_WALK_LINE_DIST / radius)
+        # direction_v = lane_end - lane_start
+        # vertical_v = (-direction_v[1], direction_v[0]) / numpy.linalg.norm(direction_v)
+        # middle += vertical_v * (self.SIDE_WALK_WIDTH / 2 + self.SIDE_WALK_LINE_DIST)
+        # side_np.setPos(middle[0], -middle[1], 0)
+        # theta = -numpy.arctan2(direction_v[1], direction_v[0])
+        # side_np.setQuat(LQuaternionf(numpy.cos(theta / 2), 0, 0, numpy.sin(theta / 2)))
+        # side_np.setScale(
+        #     length * factor, self.SIDE_WALK_WIDTH, self.SIDE_WALK_THICKNESS * (1 + 0.1 * numpy.random.rand())
+        # )
+        # if self.render:
+        #     side_np.setTexture(self.ts_color, self.side_texture)
+        #     self.side_walk.instanceTo(side_np)
+        return
 
     def _add_land(self, lanes):
         if isinstance(lanes[0], StraightLane):
