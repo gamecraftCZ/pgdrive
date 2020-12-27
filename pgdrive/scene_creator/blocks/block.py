@@ -344,27 +344,27 @@ class Block(Element):
                     if norm(lane_start[0] - lane_end[0], lane_start[1] - lane_end[1]) > 1e-1:
                         self._add_side_walk2bullet(lane_start, lane_end, middle, radius, lane.direction)
 
-            elif lane.line_types[k] == LineType.STRIPED:
-                straight = True if isinstance(lane, StraightLane) else False
-                segment_num = int(lane.length / (2 * Block.STRIPE_LENGTH))
-                for segment in range(segment_num):
-                    lane_start = lane.position(segment * Block.STRIPE_LENGTH * 2, i * lane_width / 2)
-                    lane_end = lane.position(
-                        segment * Block.STRIPE_LENGTH * 2 + Block.STRIPE_LENGTH, i * lane_width / 2
-                    )
-                    middle = lane.position(
-                        segment * Block.STRIPE_LENGTH * 2 + Block.STRIPE_LENGTH / 2, i * lane_width / 2
-                    )
-
-                    self._add_lane_line2bullet(
-                        lane_start, lane_end, middle, parent_np, line_color, lane.line_types[k], straight
-                    )
-
-                if straight:
-                    lane_start = lane.position(0, i * lane_width / 2)
-                    lane_end = lane.position(lane.length, i * lane_width / 2)
-                    middle = lane.position(lane.length / 2, i * lane_width / 2)
-                    self._add_box_body(lane_start, lane_end, middle, parent_np, lane.line_types[k])
+            # elif lane.line_types[k] == LineType.STRIPED:
+            #     straight = True if isinstance(lane, StraightLane) else False
+            #     segment_num = int(lane.length / (2 * Block.STRIPE_LENGTH))
+            #     for segment in range(segment_num):
+            #         lane_start = lane.position(segment * Block.STRIPE_LENGTH * 2, i * lane_width / 2)
+            #         lane_end = lane.position(
+            #             segment * Block.STRIPE_LENGTH * 2 + Block.STRIPE_LENGTH, i * lane_width / 2
+            #         )
+            #         middle = lane.position(
+            #             segment * Block.STRIPE_LENGTH * 2 + Block.STRIPE_LENGTH / 2, i * lane_width / 2
+            #         )
+            #
+            #         self._add_lane_line2bullet(
+            #             lane_start, lane_end, middle, parent_np, line_color, lane.line_types[k], straight
+            #         )
+            #
+            #     if straight:
+            #         lane_start = lane.position(0, i * lane_width / 2)
+            #         lane_end = lane.position(lane.length, i * lane_width / 2)
+            #         middle = lane.position(lane.length / 2, i * lane_width / 2)
+            #         self._add_box_body(lane_start, lane_end, middle, parent_np, lane.line_types[k])
 
     def _add_box_body(self, lane_start, lane_end, middle, parent_np: NodePath, line_type):
         length = norm(lane_end[0] - lane_start[0], lane_end[1] - lane_start[1])

@@ -19,7 +19,7 @@ def vis_big(debug: bool = False, asset_path=None, block_num=40, lane_width=3.5, 
     test.setBackgroundColor(1, 1, 1, 1)
     test.setFrameRateMeter(False)
 
-    test.cam.setPos(-200, -350, 2000)
+    test.cam.setPos(300, 350, 2000)
     AssetLoader.init_loader(test, test.asset_path)
     test.graphicsEngine.renderFrame()
     test.graphicsEngine.renderFrame()
@@ -38,4 +38,4 @@ def vis_big(debug: bool = False, asset_path=None, block_num=40, lane_width=3.5, 
 
 
 if __name__ == "__main__":
-    vis_big()
+    vis_big(seed=77)
