@@ -1,6 +1,7 @@
 from pgdrive.scene_creator.blocks.curve import Curve
 from pgdrive.scene_creator.blocks.ramp import InRampOnStraight, OutRampOnStraight
 from pgdrive.scene_creator.blocks.roundabout import Roundabout
+from pgdrive.scene_creator.blocks.small_curve import SmallCurve
 from pgdrive.scene_creator.blocks.std_intersection import StdInterSection
 from pgdrive.scene_creator.blocks.std_t_intersection import StdTInterSection
 from pgdrive.scene_creator.blocks.straight import Straight
@@ -8,11 +9,12 @@ from pgdrive.scene_creator.blocks.straight import Straight
 
 class PGBlock:
     TYPE = {
-        Curve: 0.5,
-        Straight: 0.1,
-        StdInterSection: 0.075,
-        Roundabout: 0.05,
-        StdTInterSection: 0.075,
+        Curve: 0,
+        SmallCurve: 0.5,
+        Straight: 0.3,
+        StdInterSection: 0,
+        Roundabout: 0,
+        StdTInterSection: 0,
         InRampOnStraight: 0.1,
         OutRampOnStraight: 0.1
     }

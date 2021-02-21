@@ -505,7 +505,7 @@ class PGDriveEnv(gym.Env):
         else:
             logging.warning(
                 "Warning: The pre-generated maps is with config {}, but current environment's map "
-                "config is {}.\nWe now fallback to BIG algorithm to generate map online!".format(
+                "config is {}.\nWe now fallback to BIGjahoda algorithm to generate map online!".format(
                     restored_data["map_config"], self.map_config
                 )
             )

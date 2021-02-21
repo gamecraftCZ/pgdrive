@@ -82,6 +82,12 @@ class BlockParameterSpace:
         Parameter.angle: PGBoxSpace(min=45, max=135),
         Parameter.dir: PGDiscreteSpace(2)
     }
+    SMALL_CURVE = {
+        Parameter.length: PGBoxSpace(min=125.0, max=185.0),
+        Parameter.radius: PGBoxSpace(min=340.0, max=440.0),
+        Parameter.angle: PGBoxSpace(min=10, max=35),
+        Parameter.dir: PGDiscreteSpace(2)
+    }
     INTERSECTION = {
         Parameter.radius: PGConstantSpace(10),
         Parameter.change_lane_num: PGDiscreteSpace(number=2),  # 0, 1
