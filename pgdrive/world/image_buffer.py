@@ -10,8 +10,9 @@ from pgdrive.world import RENDER_MODE_ONSCREEN
 class ImageBuffer:
     LINE_FRAME_COLOR = (0.8, 0.8, 0.8, 0)
     CAM_MASK = None
-    BUFFER_W = 84  # left to right
-    BUFFER_H = 84  # bottom to top
+    # Not used
+    # BUFFER_W = 84  # left to right
+    # BUFFER_H = 84  # bottom to top
     BKG_COLOR = Vec3(179 / 255, 211 / 255, 216 / 255)
     display_bottom = 0.8
     display_top = 1
@@ -86,12 +87,17 @@ class ImageBuffer:
 
         if not clip:
             numpy_array = np.array(
-                [[int(img.getGray(i, j) * 255) for j in range(img.getYSize())] for i in range(img.getXSize())],
+                [[(np.array([img.getRedVal(i, j), img.getGreenVal(i, j), img.getBlueVal(i, j)], dtype=np.uint8))
+                  for j in range(img.getYSize())] for i in range(img.getXSize())],
                 dtype=np.uint8
             )
             return np.clip(numpy_array, 0, 255)
         else:
-            numpy_array = np.array([[img.getGray(i, j) for j in range(img.getYSize())] for i in range(img.getXSize())])
+            numpy_array = np.array(
+                [[(np.array([img.getRed(i, j), img.getGreen(i, j), img.getBlue(i, j)], dtype=np.uint8))
+                  for j in range(img.getYSize())] for i in range(img.getXSize())],
+                dtype=np.uint8
+            )
             return np.clip(numpy_array, 0, 1)
 
     def add_to_display(self, pg_world, display_region: List[float]):

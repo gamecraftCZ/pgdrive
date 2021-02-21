@@ -59,6 +59,7 @@ class ObservationType(ABC):
         info.append(clip(yaw_rate, 0.0, 1.0))
         _, lateral = vehicle.lane.local_coordinates(vehicle.position)
         info.append(clip((lateral * 2 / vehicle.routing_localization.map.lane_width + 1.0) / 2.0, 0.0, 1.0))
+        # breakpoint()
         return info
 
     @staticmethod
@@ -83,23 +84,23 @@ class ObservationType(ABC):
         lateral_to_left = vehicle.routing_localization.map.lane_width * vehicle.routing_localization.map.lane_num - lateral_to_right
         return lateral_to_left, lateral_to_right
 
-    @staticmethod
-    def resize_img(array, dim_1, dim_2):
-        """
-        resize to (84, 84)
-        """
-        x_step = int(dim_1 / 84)
-        y_step = int(dim_2 / 84 / 2)
-        res = []
-        for x in range(0, dim_1, x_step):
-            d = []
-            for y in range(dim_2 - 1, 0, -y_step):
-                d.append(array[x][y])
-                if len(d) > 84:
-                    break
-            res.append(d[:84])
-        res = res[:84]
-        return np.asarray(res, dtype=np.float32)
+    # @staticmethod
+    # def resize_img(array, dim_1, dim_2):
+    #     """
+    #     resize to (84, 84)
+    #     """
+    #     x_step = int(dim_1 / 160)
+    #     y_step = int(dim_2 / 84 / 2)
+    #     res = []
+    #     for x in range(0, dim_1, x_step):
+    #         d = []
+    #         for y in range(dim_2 - 1, 0, -y_step):
+    #             d.append(array[x][y])
+    #             if len(d) > 84:
+    #                 break
+    #         res.append(d[:84])
+    #     res = res[:84]
+    #     return np.asarray(res, dtype=np.float32)
 
     @staticmethod
     def show_gray_scale_array(obs):
@@ -134,7 +135,7 @@ class ImageObservation(ObservationType):
     """
     Use only image info as input
     """
-    STACK_SIZE = 3  # use continuous 3 image as the input
+    STACK_SIZE = 3  # RGB
 
     def __init__(self, config, image_source: str, clip_rgb: bool):
         self.image_source = image_source
@@ -152,12 +153,13 @@ class ImageObservation(ObservationType):
 
     def observe(self, image_buffer: ImageBuffer):
         new_obs = image_buffer.get_pixels_array(self.rgb_clip)
-        self.state = np.roll(self.state, -1, axis=-1)
-        self.state[:, :, -1] = new_obs
+        self.state = new_obs
+        # self.state = np.roll(self.state, -1, axis=-1)
+        # self.state[:, :, -1] = new_obs
         return self.state
 
     def get_image(self):
-        return self.state.copy()[:, :, -1]
+        return self.state.copy()
 
 
 class LidarStateObservation(ObservationType):

@@ -65,8 +65,8 @@ class VehicleParameterSpace:
         # TODO the following parameters will be opened soon using PGBoxSPace
         Parameter.steering_max: PGConstantSpace(40.0),
         Parameter.engine_force_max: PGConstantSpace(500.0),
-        Parameter.brake_force_max: PGConstantSpace(40.0),
-        Parameter.speed_max: PGConstantSpace(120),
+        Parameter.brake_force_max: PGConstantSpace(120.0),
+        Parameter.speed_max: PGConstantSpace(80),
     }
 
 

@@ -129,7 +129,7 @@ class OpponentModelPredictiveControl(ModelPredictiveControl):
         [x, y, v, phi, beta] = state
         pedal, steering = control[0]
         pedal *= 500
-        steering *= 40
+        steering *= 60
         new_beta = np.arctan(0.5 * np.tan(steering / 180 * np.pi))
 
         if pedal < 0:

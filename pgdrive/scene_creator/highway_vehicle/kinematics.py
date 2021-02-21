@@ -26,9 +26,9 @@ class Vehicle:
     """ Vehicle length [m] """
     WIDTH = 2.0
     """ Vehicle width [m] """
-    DEFAULT_SPEEDS = [23, 25]
+    DEFAULT_SPEEDS = [55, 75]
     """ Range for random initial speeds [m/s] """
-    MAX_SPEED = 40.
+    MAX_SPEED = 70.
     """ Maximum reachable speed [m/s] """
     def __init__(
         self,
