@@ -65,8 +65,13 @@ class JoystickController(Controller):
 
     def process_input(self):
         pygame.event.pump()
-        steering = -self.joystick.get_axis(0)
-        if abs(steering) < 0.1:
+        steering = -self.joystick.get_axis(2) / 3 # Steering - right stick  -1 to 1 -> -0.5 to 0.5
+        if abs(steering) < 0.05:
             steering = 0
-        throttle_brake = -self.joystick.get_axis(4) * abs(self.joystick.get_axis(4))
-        return [steering, throttle_brake]
+        throttle_brake = -self.joystick.get_axis(1) # throttle/break - left stick  -1 to 1
+
+        should_turn_left = self.joystick.get_axis(4) > 0  # -1 to 1
+        should_turn_right = self.joystick.get_axis(5) > 0   # -1 to 1
+        should_exit = self.joystick.get_button(0) == 1      # 0 or 1
+
+        return [steering, throttle_brake], should_turn_left, should_turn_right, should_exit

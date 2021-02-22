@@ -185,8 +185,9 @@ class PGDriveEnv(gym.Env):
             )
 
         # prepare step
+        should_turn_left, should_turn_right, should_exit = None, None, None
         if self.config["manual_control"] and self.use_render:
-            action = self.controller.process_input()
+            action, should_turn_left, should_turn_right, should_exit = self.controller.process_input()
             action = self.expert_take_over(action)
 
         action = safe_clip(action, min_val=self.action_space.low[0], max_val=self.action_space.high[0])
@@ -214,7 +215,10 @@ class PGDriveEnv(gym.Env):
             "velocity": float(self.vehicle.speed),
             "steering": float(self.vehicle.steering),
             "acceleration": float(self.vehicle.throttle_brake),
-            "step_reward": float(step_reward)
+            "step_reward": float(step_reward),
+            "should_turn_left": should_turn_left,
+            "should_turn_right": should_turn_right,
+            "should_exit": should_exit,
         }
 
         info.update(done_info)
