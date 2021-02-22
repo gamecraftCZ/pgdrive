@@ -142,7 +142,7 @@ class BaseVehicle(DynamicElement):
             self.lidar.perceive(self.position, self.heading_theta, self.pg_world.physics_world)
         if self.routing_localization is not None:
             self.lane, self.lane_index = self.routing_localization.update_navigation_localization(self)
-        self._state_check()
+        return self._state_check()
 
     def reset(self, map: Map, pos: np.ndarray, heading: float):
         """
@@ -432,6 +432,8 @@ class BaseVehicle(DynamicElement):
             contacts.add(name[0])
         if self.render:
             self.render_collision_info(contacts)
+
+        return contacts
 
     def _collision_check(self, contact):
         """

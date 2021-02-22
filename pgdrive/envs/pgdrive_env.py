@@ -11,6 +11,7 @@ import numpy as np
 
 from pgdrive.envs.observation_type import LidarStateObservation, ImageStateObservation
 from pgdrive.pg_config import PGConfig
+from pgdrive.pg_config.body_name import BodyName
 from pgdrive.scene_creator.ego_vehicle.base_vehicle import BaseVehicle
 from pgdrive.scene_creator.ego_vehicle.vehicle_module.depth_camera import DepthCamera
 from pgdrive.scene_creator.ego_vehicle.vehicle_module.mini_map import MiniMap
@@ -199,7 +200,7 @@ class PGDriveEnv(gym.Env):
         self.scene_manager.step(self.config["decision_repeat"])
 
         # update states, if restore from episode data, position and heading will be force set in update_state() function
-        done = self.scene_manager.update_state()
+        done, contacts = self.scene_manager.update_state()
 
         # update rl info
         self.done = self.done or done
@@ -219,6 +220,7 @@ class PGDriveEnv(gym.Env):
             "should_turn_left": should_turn_left,
             "should_turn_right": should_turn_right,
             "should_exit": should_exit,
+            "stripped_line": BodyName.Stripped_line in contacts
         }
 
         info.update(done_info)

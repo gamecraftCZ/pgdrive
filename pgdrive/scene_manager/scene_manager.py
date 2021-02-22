@@ -96,7 +96,7 @@ class SceneManager:
         #  panda3d render and garbage collecting loop
         pg_world.taskMgr.step()
 
-    def update_state(self) -> bool:
+    def update_state(self) -> (bool, list):
         """
         Update states after finishing movement
         :param pg_world: World
@@ -110,8 +110,8 @@ class SceneManager:
         elif self.record_system is not None:
             # didn't record while replay
             self.record_system.record_frame(self.traffic.get_global_states())
-        self.ego_vehicle.update_state()
-        return done
+        contacts = self.ego_vehicle.update_state()
+        return done, contacts
 
     def dump_episode(self) -> None:
         """Dump the data of an episode."""
