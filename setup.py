@@ -35,7 +35,7 @@ setup(
         "panda3d-simplepbr",
         "pillow",
         "pytest",
-        "opencv-python-headless"
+        "opencv-python-headless",
     ],
     include_package_data=True,
     license="Apache 2.0",

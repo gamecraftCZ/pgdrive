@@ -2,6 +2,7 @@ from abc import ABC
 
 import gym
 import numpy as np
+import cv2
 
 from pgdrive.scene_creator.ego_vehicle.base_vehicle import BaseVehicle
 from pgdrive.scene_creator.ego_vehicle.vehicle_module.routing_localization import RoutingLocalizationModule
@@ -154,6 +155,7 @@ class ImageObservation(ObservationType):
     def observe(self, image_buffer: ImageBuffer):
         new_obs = image_buffer.get_pixels_array(self.rgb_clip)
         self.state = new_obs
+        # self.state = cv2.resize(new_obs, (80, 160))  # I use resizing as it does antialiasing
         # self.state = np.roll(self.state, -1, axis=-1)
         # self.state[:, :, -1] = new_obs
         return self.state

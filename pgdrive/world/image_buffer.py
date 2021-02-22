@@ -6,7 +6,6 @@ from panda3d.core import NodePath, Vec3, Vec4, Camera, PNMImage
 
 from pgdrive.world import RENDER_MODE_ONSCREEN
 
-
 class ImageBuffer:
     LINE_FRAME_COLOR = (0.8, 0.8, 0.8, 0)
     CAM_MASK = None
@@ -51,6 +50,7 @@ class ImageBuffer:
         else:
             self.buffer = self.pg_world.win.makeTextureBuffer("camera", length, width, fbp=frame_buffer_property)
             # now we have to setup a new scene graph to make this scene
+        # self.buffer.setAntialias(AntialiasAttrib.MAuto)
 
         self.node_path = NodePath("new render")
         self.line_borders = []
@@ -86,18 +86,31 @@ class ImageBuffer:
         img = self.get_image()
 
         if not clip:
+            # numpy_array = np.zeros(shape=(img.getYSize(), img.getXSize(), 3))
+            # for y in range(img.getYSize()):
+            #     for x in range(img.getXSize()):
+            #         numpy_array[y][x] = (img.getRedVal(x, y), img.getGreenVal(x, y), img.getBlueVal(x, y))
             numpy_array = np.array(
-                [[(np.array([img.getRedVal(i, j), img.getGreenVal(i, j), img.getBlueVal(i, j)], dtype=np.uint8))
-                  for j in range(img.getYSize())] for i in range(img.getXSize())],
+                [
+                    [
+                        (img.getRedVal(i, j), img.getGreenVal(i, j), img.getBlueVal(i, j))
+                        for j in range(img.getYSize())
+                    ]
+                    for i in range(img.getXSize())],
                 dtype=np.uint8
             )
             return np.clip(numpy_array, 0, 255)
         else:
+            print("[ERROR] TODO get_pixels_array clip=True")
             numpy_array = np.array(
-                [[(np.array([img.getRed(i, j), img.getGreen(i, j), img.getBlue(i, j)], dtype=np.uint8))
-                  for j in range(img.getYSize())] for i in range(img.getXSize())],
+                [
+                    [
+                        (img.getRedVal(i, j), img.getGreenVal(i, j), img.getBlueVal(i, j))
+                        for j in range(img.getYSize())
+                    ]
+                    for i in range(img.getXSize())],
                 dtype=np.uint8
-            )
+            ) / 255.
             return np.clip(numpy_array, 0, 1)
 
     def add_to_display(self, pg_world, display_region: List[float]):
