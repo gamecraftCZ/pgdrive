@@ -75,15 +75,15 @@ class BlockParameterSpace:
     Make sure the range of curve parameters covers the parameter space of other blocks,
     otherwise, an error may happen in navigation info normalization
     """
-    STRAIGHT = {Parameter.length: PGBoxSpace(min=40.0, max=80.0)}
+    STRAIGHT = {Parameter.length: PGBoxSpace(min=60.0, max=100.0)}
     CURVE = {
-        Parameter.length: PGBoxSpace(min=40.0, max=80.0),
+        Parameter.length: PGBoxSpace(min=60.0, max=100.0),
         Parameter.radius: PGBoxSpace(min=25.0, max=60.0),
         Parameter.angle: PGBoxSpace(min=45, max=135),
         Parameter.dir: PGDiscreteSpace(2)
     }
     SMALL_CURVE = {
-        Parameter.length: PGBoxSpace(min=125.0, max=185.0),
+        Parameter.length: PGBoxSpace(min=80.0, max=135.0),
         Parameter.radius: PGBoxSpace(min=340.0, max=440.0),
         Parameter.angle: PGBoxSpace(min=10, max=35),
         Parameter.dir: PGDiscreteSpace(2)
