@@ -37,8 +37,8 @@ class ObservationType(ABC):
             (vehicle.routing_localization.map.lane_num + 1) * vehicle.routing_localization.map.lane_width
         )
         info = [
-            clip(lateral_to_left / total_width, 0.0, 1.0),
-            clip(lateral_to_right / total_width, 0.0, 1.0),
+            clip(lateral_to_left / total_width, 0.0, 1.0),   # lateral_to_left = distance to yellow line
+            clip(lateral_to_right / total_width, 0.0, 1.0),  # lateral_to_right = distance to pavement
             vehicle.heading_diff(current_reference_lane),
             # Note: speed can be negative denoting free fall. This happen when emergency brake.
             clip((vehicle.speed + 1) / (vehicle.max_speed + 1), 0.0, 1.0),
