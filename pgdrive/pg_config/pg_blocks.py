@@ -10,8 +10,8 @@ from pgdrive.scene_creator.blocks.straight import Straight
 class PGBlock:
     TYPE = {
         Curve: 0,
-        SmallCurve: 0.5,
-        Straight: 0.3,
+        SmallCurve: 0.7,
+        Straight: 0.1,
         StdInterSection: 0,
         Roundabout: 0,
         StdTInterSection: 0,
