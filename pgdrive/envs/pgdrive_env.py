@@ -137,6 +137,8 @@ class PGDriveEnv(gym.Env):
         self.done = False
         self.save_mode = False
 
+        self.switched_fps = None
+
     def lazy_init(self):
         """
         Only init once in runtime, variable here exists till the close_env is called
@@ -186,9 +188,9 @@ class PGDriveEnv(gym.Env):
             )
 
         # prepare step
-        should_turn_left, should_turn_right, should_exit = None, None, None
+        should_turn_left, should_turn_right, should_exit, switch_fps = None, None, None, None
         if self.config["manual_control"] and self.use_render:
-            action, should_turn_left, should_turn_right, should_exit = self.controller.process_input()
+            action, should_turn_left, should_turn_right, should_exit, switch_fps = self.controller.process_input()
             action = self.expert_take_over(action)
 
         action = safe_clip(action, min_val=self.action_space.low[0], max_val=self.action_space.high[0])
@@ -222,6 +224,11 @@ class PGDriveEnv(gym.Env):
             "should_exit": should_exit,
             "stripped_line": BodyName.Stripped_line in contacts
         }
+
+        if switch_fps != self.switched_fps:
+            self.switched_fps = switch_fps
+            if switch_fps:
+                self.pg_world.force_fps.toggle()
 
         info.update(done_info)
         return obs, step_reward + done_reward, self.done, info

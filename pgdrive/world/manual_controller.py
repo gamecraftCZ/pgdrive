@@ -73,5 +73,6 @@ class JoystickController(Controller):
         should_turn_left = self.joystick.get_axis(4) > -.5    # -1 to 1
         should_turn_right = self.joystick.get_axis(5) > -.5   # -1 to 1
         should_exit = self.joystick.get_button(0) == 1      # 0 or 1 - "x"
+        switch_fps = self.joystick.get_button(1) == 1      # 0 or 1 - "O"
 
-        return [steering, throttle_brake], should_turn_left, should_turn_right, should_exit
+        return [steering, throttle_brake], should_turn_left, should_turn_right, should_exit, switch_fps
