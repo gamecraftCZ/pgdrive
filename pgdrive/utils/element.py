@@ -103,7 +103,8 @@ class Element:
         self._config.clear()
 
     def __del__(self):
-        logging.debug("{} is destroyed".format(self.class_name))
+        pass
+        # logging.debug("{} is destroyed".format(self.class_name))
 
 
 class DynamicElement(Element):
