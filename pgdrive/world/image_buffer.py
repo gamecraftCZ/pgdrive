@@ -96,7 +96,7 @@ class ImageBuffer:
                         (img.getRedVal(i, j), img.getGreenVal(i, j), img.getBlueVal(i, j))
                         for j in range(img.getYSize())
                     ]
-                    for i in range(img.getXSize())],
+                    for i in range(40, img.getXSize() - 40)],  # Crop first and last 40 pixels
                 dtype=np.uint8
             )
             return np.clip(numpy_array, 0, 255)
@@ -108,7 +108,7 @@ class ImageBuffer:
                         (img.getRedVal(i, j), img.getGreenVal(i, j), img.getBlueVal(i, j))
                         for j in range(img.getYSize())
                     ]
-                    for i in range(img.getXSize())],
+                    for i in range(40, img.getXSize() - 40)],  # Crop first and last 40 pixels
                 dtype=np.uint8
             ) / 255.
             return np.clip(numpy_array, 0, 1)

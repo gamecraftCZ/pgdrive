@@ -13,7 +13,7 @@ class RGBCamera(ImageBuffer):
     display_top = 1.0
 
     def __init__(self, length: int, width: int, chassis_np: NodePath, pg_world: PGWorld):
-        self.BUFFER_W = length
+        self.BUFFER_W = length + 80
         self.BUFFER_H = width
         super(RGBCamera, self).__init__(
             self.BUFFER_W,

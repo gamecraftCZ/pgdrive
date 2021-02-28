@@ -53,7 +53,7 @@ class BaseVehicle(DynamicElement):
         dict(
             lidar=(240, 50, 4),  # laser num, distance, other vehicle info num
             mini_map=(84, 84, 250),  # buffer length, width
-            rgb_cam=(240, 120),  # buffer length, width
+            rgb_cam=(160, 120),  # buffer length, width
             depth_cam=(84, 84, True),  # buffer length, width, view_ground
             show_navi_mark=False,
             increment_steering=False,
