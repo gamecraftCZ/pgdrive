@@ -38,7 +38,7 @@ setup(
         "opencv-python-headless",
     ],
     # include_package_data=True,
-    package_data={"": ["*", "*/**"]},
+    package_data={"": ["*", "**/*"]},
     license="Apache 2.0",
     long_description=long_description,
     long_description_content_type='text/markdown'
