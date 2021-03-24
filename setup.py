@@ -11,7 +11,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 packages = find_namespace_packages(
-    exclude=("docs", "docs.*", "documentation", "documentation.*", "build.*"))
+    exclude=("docs", "docs.*", "documentation", "documentation.*", "pgdrive.assets.*", "build.*"))
 print("We will install the following packages: ", packages)
 
 setup(
@@ -37,9 +37,11 @@ setup(
         "pytest",
         "opencv-python-headless",
     ],
-    include_package_data=True,
-    package_dir={"pgdrive.assets": "pgdrive/assets", "pgdrive.examples": "pgdrive/examples/**"}
-    package_data={"pgdrive.assets": "pgdrive/assets/**", "pgdrive.examples": "pgdrive/examples/**"}
+    # include_package_data=True,
+    # zip_safe=False,
+    # package_dir={"pgdrive.assets": "pgdrive/assets", "pgdrive.examples": "pgdrive/examples"},
+    # package_data={"pgdrive.assets": ["pgdrive/assets/**"], "pgdrive.examples": ["pgdrive/examples/**"]},
+    package_data={"": ["*", "*/**"]},
     license="Apache 2.0",
     long_description=long_description,
     long_description_content_type='text/markdown'
