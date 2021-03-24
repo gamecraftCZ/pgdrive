@@ -38,6 +38,8 @@ setup(
         "opencv-python-headless",
     ],
     include_package_data=True,
+    package_dir={"pgdrive.assets": "pgdrive/assets", "pgdrive.examples": "pgdrive/examples/**"}
+    package_data={"pgdrive.assets": "pgdrive/assets/**", "pgdrive.examples": "pgdrive/examples/**"}
     license="Apache 2.0",
     long_description=long_description,
     long_description_content_type='text/markdown'
