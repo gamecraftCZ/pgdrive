@@ -3,6 +3,7 @@ from distutils.core import setup
 from os import path
 
 from setuptools import find_namespace_packages
+import os
 
 assert sys.version_info.major == 3 and sys.version_info.minor >= 6, "python version >= 3.6 is required"
 
@@ -13,6 +14,13 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 packages = find_namespace_packages(
     exclude=("docs", "docs.*", "documentation", "documentation.*", "pgdrive.assets.*", "build.*"))
 print("We will install the following packages: ", packages)
+
+def package_files(directory):
+    paths = []
+    for (path, directories, filenames) in os.walk(directory):
+        for filename in filenames:
+            paths.append(os.path.join('..', path, filename))
+    return paths
 
 setup(
     name="pgdrive",
@@ -38,7 +46,7 @@ setup(
         "opencv-python-headless",
     ],
     # include_package_data=True,
-    package_data={"": ["*", "**/*"]},
+    package_data={"": [*package_files("pgdrive\\assets"), *package_files("pgdrive\\examples")]},
     license="Apache 2.0",
     long_description=long_description,
     long_description_content_type='text/markdown'
